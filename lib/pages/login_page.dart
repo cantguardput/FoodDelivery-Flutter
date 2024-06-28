@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:fooddelevery/components/my_button.dart';
 import 'package:fooddelevery/components/my_textfield.dart';
+import 'package:fooddelevery/pages/Home_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  final void Function()? onTap;
+  const LoginPage({super.key, required this.onTap});
+
+  @override
+  State<LoginPage>createState() =>_LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  LoginPage({super.key});
+  void login(){
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder : (context) => const HomePage(),
+        ) );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +67,7 @@ class LoginPage extends StatelessWidget {
           // Button
           MyButton(
               text: "Sign In",
-              onTap: (){},
+              onTap: login,
           ),
           const SizedBox(height:25),
           Row(
@@ -64,10 +78,14 @@ class LoginPage extends StatelessWidget {
                 color : Theme.of(context).colorScheme.inversePrimary),
               ),
               const SizedBox(width:4),
-              Text("Register Now!",
-                  style: TextStyle(
-                  color : Theme.of(context).colorScheme.inversePrimary,
-                    fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: widget.onTap,
+                child:Text(
+                    "Register Now!",
+                    style: TextStyle(
+                        color : Theme.of(context).colorScheme.inversePrimary,
+                        fontWeight: FontWeight.bold,
+              ),
               ),
               )],
           )
