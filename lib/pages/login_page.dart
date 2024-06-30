@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
 
           //Slogan
           Text(
-              "Food Delivery App",
+              "Allesio",
               style: TextStyle(
                 fontSize:16,
                 color: Theme.of(context).colorScheme.inversePrimary,
