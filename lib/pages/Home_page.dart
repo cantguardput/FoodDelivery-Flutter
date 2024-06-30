@@ -7,6 +7,7 @@ import 'package:fooddelevery/components/my_sillver_app_bar.dart';
 import 'package:fooddelevery/components/my_tab_bar.dart';
 import 'package:fooddelevery/models/food.dart';
 import 'package:fooddelevery/models/restaurant.dart';
+import 'package:fooddelevery/pages/food_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -42,7 +43,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         padding: EdgeInsets.zero,
       itemBuilder : (context, index){
         final food = categoryMenu[index];
-        return FoodTile(food: food, onTap:() {} );
+        return FoodTile(food: food, onTap:()  => Navigator.push(
+            context, MaterialPageRoute(
+            builder: (context)=>FoodPage(food: food),
+        ),
+        ),
+        );
       },
       );
     }).toList();
