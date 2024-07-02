@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "908811460896",
+    "project_id": "alessio-70211",
+    "storage_bucket": "alessio-70211.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908811460896:android:cbf0ca9ba0e436cadf7745",
+        "android_client_info": {
+          "package_name": "com.example.fooddelevery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOKeUpsN2T--YQCt9Ut8tUnxRks-FZn78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
