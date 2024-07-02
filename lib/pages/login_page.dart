@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fooddelevery/components/my_button.dart';
 import 'package:fooddelevery/components/my_textfield.dart';
 import 'package:fooddelevery/pages/Home_page.dart';
+import 'package:fooddelevery/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -15,29 +16,37 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void login(){
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder : (context) => const HomePage(),
-        ) );
+  void login() async{
+    final _authService = AuthService();
+    try{
+      await _authService.signInWtihEmailPassword(emailController.text, passwordController.text);
+    }
+    catch(e) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(
+              title: Text(e.toString()),
+            ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Center(
-        child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // logo
-          Icon(
-              Icons.lock_open_rounded,
-          size: 100,
-          color: Theme.of(context).colorScheme.inversePrimary,
-          ),
-          const SizedBox(height: 25),
-
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // logo
+              Icon(
+                Icons.android,
+                size: 100,
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+              const SizedBox(height: 25),
           //Slogan
           Text(
               "Allesio",
