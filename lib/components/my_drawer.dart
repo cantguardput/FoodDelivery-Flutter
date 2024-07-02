@@ -1,50 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:fooddelevery/components/my_drawer_tile.dart';
 import 'package:fooddelevery/pages/settings_page.dart';
+import 'package:fooddelevery/services/auth_service.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
+  const MyDrawer({Key? key});
+
+  void logout(BuildContext context) {
+    final authService = AuthService();
+    authService.signOut(); // Perform logout operation
+
+    Navigator.pushReplacementNamed(context, '/login'); // Navigate to login page
+  }
 
   @override
   Widget build(BuildContext context) {
-  return Drawer(
-    backgroundColor: Theme.of(context).colorScheme.background,
-    child: Column(
-      children:[
-        // app logo
-        Padding(
+    return Drawer(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      child: Column(
+        children: [
+          // App logo or any header
+          Padding(
             padding: const EdgeInsets.only(top: 100.0),
             child: Icon(
               Icons.lock_open_rounded,
               size: 80,
-              color:  Theme.of(context).colorScheme.inversePrimary,
+              color: Theme.of(context).colorScheme.inversePrimary,
             ),
-        ),
-
-        Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Divider(
-            color:  Theme.of(context).colorScheme.secondary,
           ),
-        ),
 
-        // list tile
-        MyDrawerTile(text:" H O M E ", icon: Icons.home , onTap:() => Navigator.pop(context)),
-        MyDrawerTile(text:" S E T T I N G S ", icon: Icons.settings , onTap:(){
-          Navigator.pop(context);
-          Navigator.push(
-          context,
-          MaterialPageRoute( builder: (context) => SettingsPage(),
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Divider(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
-          );
-        },
-        ),
 
-        const Spacer(),
-        MyDrawerTile(text:" L O G O U T ", icon: Icons.logout , onTap:()  => Navigator.pop(context)),
-        const SizedBox(height: 25),
-      ],
-    ),
-  );
+          // Drawer items
+          MyDrawerTile(
+            text: "HOME",
+            icon: Icons.home,
+            onTap: () => Navigator.pop(context),
+          ),
+          MyDrawerTile(
+            text: "SETTINGS",
+            icon: Icons.settings,
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsPage()),
+              );
+            },
+          ),
+          MyDrawerTile(
+            text: "LOGOUT",
+            icon: Icons.logout,
+            onTap: () => logout(context), // Call logout method on tap
+          ),
+          SizedBox(height: 25),
+        ],
+      ),
+    );
   }
 }

@@ -74,8 +74,7 @@ class Restaurant extends ChangeNotifier {
       price: 30000,
       category: FoodCategory.Drinks,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "Ice Cubes", price: 2000),
       ],
     ),
     Food(
@@ -85,9 +84,9 @@ class Restaurant extends ChangeNotifier {
       price: 25000,
       category: FoodCategory.Drinks,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "Ice Cubes", price: 2000),
       ],
+
     ),
     Food(
       name: "Fresh orange juice",
@@ -96,8 +95,7 @@ class Restaurant extends ChangeNotifier {
       price: 20000,
       category: FoodCategory.Drinks,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "Ice Cubes", price: 2000),
       ],
     ),
     Food(
@@ -107,8 +105,7 @@ class Restaurant extends ChangeNotifier {
       price: 15000,
       category: FoodCategory.Drinks,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "Ice Cubes", price: 2000),
       ],
     ),
     Food(
@@ -118,8 +115,7 @@ class Restaurant extends ChangeNotifier {
       price: 40000,
       category: FoodCategory.Drinks,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "Ice Cubes", price: 2000),
       ],
     ),
 
@@ -131,8 +127,7 @@ class Restaurant extends ChangeNotifier {
       price: 25000,
       category: FoodCategory.Desert,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "More Coklat", price: 10000),
       ],
     ),
     Food(
@@ -142,8 +137,7 @@ class Restaurant extends ChangeNotifier {
       price: 30000,
       category: FoodCategory.Desert,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "More Pie", price: 5000),
       ],
     ),
     Food(
@@ -153,8 +147,7 @@ class Restaurant extends ChangeNotifier {
       price: 20000,
       category: FoodCategory.Desert,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "More Ice Cream", price: 5000),
       ],
     ),
     Food(
@@ -164,8 +157,7 @@ class Restaurant extends ChangeNotifier {
       price: 15000,
       category: FoodCategory.Desert,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "more flavors", price: 5000),
       ],
     ),
 
@@ -178,8 +170,7 @@ class Restaurant extends ChangeNotifier {
       price: 50000,
       category: FoodCategory.Sides,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "more chips", price: 10000),
       ],
     ),
     Food(
@@ -189,8 +180,7 @@ class Restaurant extends ChangeNotifier {
       price: 25000,
       category: FoodCategory.Sides,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "More Rings", price: 5000),
       ],
     ),
     Food(
@@ -201,7 +191,6 @@ class Restaurant extends ChangeNotifier {
       category: FoodCategory.Sides,
       availableAddons: [
         Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
       ],
     ),
     Food(
@@ -211,29 +200,17 @@ class Restaurant extends ChangeNotifier {
       price: 20000,
       category: FoodCategory.Sides,
       availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
+        Addon(name: "More Fries", price: 5000),
       ],
     ),
-    Food(
-      name: "Steak Burgers",
-      description: "A jucy",
-      imagePath: "lib/images/sides/Burgers cheese.png",
-      price: 40000,
-      category: FoodCategory.Sides,
-      availableAddons: [
-        Addon(name: "Extra Cheese", price: 5000),
-        Addon(name: "Meat", price: 10000),
-      ],
-    ),
-
   ];
+  final List<CartItem> _cart = [];
+  String _deliveryAddress = 'Ganet';
 
   // getter
   List<Food> get menu => _menu;
   List<CartItem> get cart => _cart;
-
-  final List<CartItem> _cart = [];
+  String get deliveryAddress => _deliveryAddress;
 
   void addToCart(Food food, List<Addon> selectedAddons) {
     CartItem? cartItem = _cart.firstWhereOrNull((item) {
@@ -286,8 +263,13 @@ class Restaurant extends ChangeNotifier {
     }
     return totalItemCount;
    }
+
    void clearCart(){
     _cart.clear();
+    notifyListeners();
+   }
+   void updateDeliveryAddress(String newAddress){
+    _deliveryAddress = newAddress;
     notifyListeners();
    }
 
@@ -314,6 +296,7 @@ class Restaurant extends ChangeNotifier {
     receipt.writeln();
     receipt.writeln("Total Items: ${getTotalItemCount()}");
     receipt.writeln("Total Items: ${_formatPrice(getTotalPrice())}");
+    receipt.writeln("Delivering to " + deliveryAddress);
     return receipt.toString();
    }
 

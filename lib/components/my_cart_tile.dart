@@ -39,25 +39,27 @@ class MyCartTile extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(cartItem.food.name),
-                    Text('Rp.' + cartItem.food.price.toString(),
+                    Text(' Rp.' + cartItem.food.price.toString(),
                         style : TextStyle(
                             color : Theme.of(context).colorScheme.primary),
                     ),
+
+                    const SizedBox(height: 10),
+
+                    QuantitySelector(
+                      quantity: cartItem.quantity,
+                      food: cartItem.food,
+                      onDecrement: (){
+                        restaurant.removeFromCart(cartItem);
+                      },
+                      onIncrement: () {
+                        restaurant.addToCart(cartItem.food, cartItem.selectedAddons);
+                      },
+                    )
                   ],
                 ),
 
                 const Spacer(),
-
-                QuantitySelector(
-                    quantity: cartItem.quantity,
-                    food: cartItem.food,
-                    onDecrement: (){
-                      restaurant.removeFromCart(cartItem);
-                    },
-                    onIncrement: () {
-                      restaurant.addToCart(cartItem.food, cartItem.selectedAddons);
-                    },
-                )
               ],
             ),
           ),
@@ -73,7 +75,7 @@ class MyCartTile extends StatelessWidget{
                       label: Row(
                         children: [
                           Text(addon.name),
-                          Text('Rp.' + addon.price.toString()),
+                          Text(' Rp.' + addon.price.toString()),
                         ],
                       ),
                       shape: StadiumBorder(
